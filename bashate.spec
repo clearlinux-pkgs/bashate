@@ -4,7 +4,7 @@
 #
 Name     : bashate
 Version  : 0.3.1
-Release  : 10
+Release  : 11
 URL      : http://tarballs.openstack.org/bashate/bashate-0.3.1.tar.gz
 Source0  : http://tarballs.openstack.org/bashate/bashate-0.3.1.tar.gz
 Summary  : A pep8 equivalent for bash scripts
@@ -27,6 +27,7 @@ BuildRequires : testtools
 BuildRequires : testtools-python
 BuildRequires : tox
 BuildRequires : virtualenv
+Patch1: unlock-pbr.patch
 
 %description
 ===============================
@@ -45,6 +46,7 @@ bin components for the bashate package.
 %package python
 Summary: python components for the bashate package.
 Group: Default
+Requires: Babel-python
 
 %description python
 python components for the bashate package.
@@ -52,6 +54,7 @@ python components for the bashate package.
 
 %prep
 %setup -q -n bashate-0.3.1
+%patch1 -p1
 
 %build
 python2 setup.py build -b py2
@@ -60,12 +63,12 @@ python3 setup.py build -b py3
 %check
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
-python2 setup.py test || :
+export no_proxy=localhost,127.0.0.1,0.0.0.0
+PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python2 setup.py test || :
 %install
 rm -rf %{buildroot}
-python2 setup.py build -b py2 install --root=%{buildroot}
-python3 setup.py build -b py3 install --root=%{buildroot}
+python2 -tt setup.py build -b py2 install --root=%{buildroot}
+python3 -tt setup.py build -b py3 install --root=%{buildroot}
 
 %files
 %defattr(-,root,root,-)
