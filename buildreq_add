@@ -1,2 +1,18 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+Babel-python
+pytz-python
+testtools
+testscenarios
+testrepository-python
+oslosphinx-python
+Sphinx-python
+fixtures-python
+discover-python
+coverage-python
+python-mock
+hacking
+traceback2-python
+unittest2-python
+python-mimeparse-python
+extras
