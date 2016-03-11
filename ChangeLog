@@ -1,6 +1,19 @@
 CHANGES
 =======
 
+0.5.0
+-----
+
+* Add reno & start at release notes
+* Ensure that E006 allows long continuation lines
+* Fix final newline testing
+* Detect arithmetic compound
+* Tighten up local result-hiding check
+* Handle argument line-up in continuations
+* Cleanup continuation line handling
+* Ignore heredoc contents
+* Replace heredoc fail-to-end detection E012 with "bash -n"
+
 0.4.0
 -----
 
