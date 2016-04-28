@@ -1,6 +1,13 @@
 CHANGES
 =======
 
+0.5.1
+-----
+
+* Add releasenote on python3
+* Add releasenotes venv
+* Fix python3 parsing of subprocess output
+
 0.5.0
 -----
 
