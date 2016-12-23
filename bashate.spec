@@ -4,7 +4,7 @@
 #
 Name     : bashate
 Version  : 0.5.1
-Release  : 22
+Release  : 23
 URL      : http://tarballs.openstack.org/bashate/bashate-0.5.1.tar.gz
 Source0  : http://tarballs.openstack.org/bashate/bashate-0.5.1.tar.gz
 Summary  : A pep8 equivalent for bash scripts
@@ -13,18 +13,20 @@ License  : Apache-2.0
 Requires: bashate-bin
 Requires: bashate-python
 BuildRequires : Babel-python
-BuildRequires : Jinja2
 BuildRequires : Sphinx-python
 BuildRequires : coverage-python
 BuildRequires : discover-python
-BuildRequires : docutils-python
 BuildRequires : extras
+BuildRequires : extras-python
 BuildRequires : fixtures-python
-BuildRequires : funcsigs-python
 BuildRequires : hacking
+BuildRequires : imagesize-python
 BuildRequires : oslosphinx-python
 BuildRequires : pbr
 BuildRequires : pip
+BuildRequires : pluggy
+BuildRequires : py-python
+BuildRequires : pytest
 BuildRequires : python-dev
 BuildRequires : python-mimeparse-python
 BuildRequires : python-mock
@@ -34,8 +36,10 @@ BuildRequires : setuptools
 BuildRequires : testrepository-python
 BuildRequires : testscenarios
 BuildRequires : testtools
+BuildRequires : tox
 BuildRequires : traceback2-python
 BuildRequires : unittest2-python
+BuildRequires : virtualenv
 
 %description
 ===============================
@@ -64,6 +68,7 @@ python components for the bashate package.
 %setup -q -n bashate-0.5.1
 
 %build
+export LANG=C
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
@@ -71,7 +76,7 @@ python3 setup.py build -b py3
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-py.test-2.7 --verbose py2
+PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python2 setup.py test || :
 %install
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot}
