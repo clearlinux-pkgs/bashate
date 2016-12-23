@@ -4,7 +4,7 @@
 #
 Name     : bashate
 Version  : 0.5.1
-Release  : 21
+Release  : 22
 URL      : http://tarballs.openstack.org/bashate/bashate-0.5.1.tar.gz
 Source0  : http://tarballs.openstack.org/bashate/bashate-0.5.1.tar.gz
 Summary  : A pep8 equivalent for bash scripts
