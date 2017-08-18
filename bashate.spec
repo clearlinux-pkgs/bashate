@@ -4,7 +4,7 @@
 #
 Name     : bashate
 Version  : 0.5.1
-Release  : 27
+Release  : 28
 URL      : http://tarballs.openstack.org/bashate/bashate-0.5.1.tar.gz
 Source0  : http://tarballs.openstack.org/bashate/bashate-0.5.1.tar.gz
 Summary  : A pep8 equivalent for bash scripts
@@ -15,6 +15,7 @@ Requires: bashate-python
 Requires: Babel
 Requires: pbr
 BuildRequires : configparser-python
+BuildRequires : enum34-python
 BuildRequires : pbr
 BuildRequires : pip
 BuildRequires : pluggy
@@ -22,15 +23,25 @@ BuildRequires : py-python
 BuildRequires : pytest
 BuildRequires : python-dev
 BuildRequires : python3-dev
+BuildRequires : reno-python
 BuildRequires : setuptools
+BuildRequires : subunit-python
+BuildRequires : testrepository-python
+BuildRequires : testtools
+BuildRequires : testtools-python
 BuildRequires : tox
 BuildRequires : virtualenv
 
 %description
-===============================
 bashate
-===============================
-A pep8 equivalent for bash scripts
+        ===============================
+        
+        A pep8 equivalent for bash scripts
+        
+        This program attempts to be an automated style checker for bash scripts
+        to fill the same part of code review that pep8 does in most OpenStack
+        projects. It started from humble beginnings in the DevStack project,
+        and will continue to evolve over time.
 
 %package bin
 Summary: bin components for the bashate package.
@@ -52,8 +63,11 @@ python components for the bashate package.
 %setup -q -n bashate-0.5.1
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1489280504
+export SOURCE_DATE_EPOCH=1503069046
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
@@ -61,12 +75,15 @@ python3 setup.py build -b py3
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python2 setup.py test || :
+PYTHONPATH=%{buildroot}/usr/lib/python3.6/site-packages python3 setup.py test || :
 %install
-export SOURCE_DATE_EPOCH=1489280504
+export SOURCE_DATE_EPOCH=1503069046
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+echo ----[ mark ]----
+cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
+echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
@@ -77,4 +94,5 @@ python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
 
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python*/*
+/usr/lib/python2*/*
+/usr/lib/python3*/*
