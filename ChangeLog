@@ -1,6 +1,39 @@
 CHANGES
 =======
 
+0.6.0
+-----
+
+* Address new pypi requirements on README.rst
+* Switch to pep8 output format
+* 0.6 Release Notes
+* Enable bashate use with pre-commit
+* Allow bashate to be called as a module
+* Add bindep.txt file
+* Stop using slave\_scripts/install-distro-packages.sh
+* Use openstack-tox-py36
+* Convert bashate-python36-fedora-26 to Zuul v3
+* Remove setting of version/release from releasenotes
+* Zuul: add file extension to playbook path
+* Initial zuulv3 job import
+* Update documentation URL for readme file
+* Add a [[ checker
+* Don't mock sysv.args
+* Fix formatting of contributor page
+* Treat sphinx warnings as errors
+* Reorder content to follow new structure
+* Update to openstackdocstheme
+* Update to tox.ini environment list
+* Add py3.5 support in setup.cfg
+* correcting typo in EXAMPLES section -I should be -i
+* docs: fixed CLI args description
+* Update .coveragerc after the removal of openstack directory
+* Changed the home-page link
+* Don't include openstack/common in flake8 exclude list
+* Enable release notes translation
+* Update docs to include all errors
+* Exclude hashbangs check for .bashrc, .bash\_profile, etc
+
 0.5.1
 -----
 
@@ -36,7 +69,7 @@ CHANGES
 -----
 
 * Detect setting locals with subshell commands
-* Change ignore-errors to ignore_errors
+* Change ignore-errors to ignore\_errors
 * Move to hacking 0.10
 * add E006: check for lines longer than 79 columns
 * Cleanup variable names TODO
@@ -63,20 +96,20 @@ CHANGES
 * Add man page
 * Remove automagic file finder
 * Strip comments before checks
-* Revert "Add E040: $(COMMAND) preferred over `COMMAND`"
+* Revert "Add E040: $(COMMAND) preferred over \`COMMAND\`"
 * Check for bash-like "for"
 * Warn against sorting requirements
 * Rename doc environment to docs
 * Add Pylint testenv environment
 * Add a check for $[
-* Add E040: $(COMMAND) preferred over `COMMAND`
+* Add E040: $(COMMAND) preferred over \`COMMAND\`
 * Treat if and elif equally
-* Add new register_ignores unit tests
+* Add new register\_ignores unit tests
 * Clean-up E011 and E020 messages
 * Bump hacking to 0.9.x series
-* Reduce loops and if statements in method discover_files
+* Reduce loops and if statements in method discover\_files
 * Remove unneeded definitions of Python Source Code Encoding
-* Add a space to the output of the method log_error
+* Add a space to the output of the method log\_error
 * Fix source location URL in README
 * Fix .gitreview project path
 
@@ -92,12 +125,12 @@ CHANGES
 * the great rename of bash8 -> bashate
 * Document E020 in README
 * Add tests and samples for legacy bash8
-* Add cleanup for IGNORE in test_bash8
+* Add cleanup for IGNORE in test\_bash8
 
 0.1.1
 -----
 
-* Improve error message in check_if_then
+* Improve error message in check\_if\_then
 * Fix ignore option and add first tests
 * Remove the executable bit from bash8.py
 * Doc: fix contributing and readme links
