@@ -6,28 +6,30 @@
 #
 Name     : bashate
 Version  : 0.6.0
-Release  : 35
+Release  : 36
 URL      : http://tarballs.openstack.org/bashate/bashate-0.6.0.tar.gz
 Source0  : http://tarballs.openstack.org/bashate/bashate-0.6.0.tar.gz
-Source99 : http://tarballs.openstack.org/bashate/bashate-0.6.0.tar.gz.asc
+Source1  : http://tarballs.openstack.org/bashate/bashate-0.6.0.tar.gz.asc
 Summary  : A pep8 equivalent for bash scripts
 Group    : Development/Tools
 License  : Apache-2.0
-Requires: bashate-bin
-Requires: bashate-python3
-Requires: bashate-license
-Requires: bashate-python
+Requires: bashate-bin = %{version}-%{release}
+Requires: bashate-license = %{version}-%{release}
+Requires: bashate-python = %{version}-%{release}
+Requires: bashate-python3 = %{version}-%{release}
 Requires: Babel
 Requires: pbr
+BuildRequires : Babel
 BuildRequires : buildreq-distutils3
 BuildRequires : pbr
-BuildRequires : pip
 BuildRequires : pluggy
 BuildRequires : py-python
 BuildRequires : pytest
+BuildRequires : python-mock
 BuildRequires : python-subunit
-BuildRequires : python3-dev
-BuildRequires : setuptools
+BuildRequires : reno-python
+BuildRequires : testrepository
+BuildRequires : testrepository-python
 BuildRequires : tox
 BuildRequires : virtualenv
 
@@ -47,7 +49,7 @@ bashate
 %package bin
 Summary: bin components for the bashate package.
 Group: Binaries
-Requires: bashate-license
+Requires: bashate-license = %{version}-%{release}
 
 %description bin
 bin components for the bashate package.
@@ -64,7 +66,7 @@ license components for the bashate package.
 %package python
 Summary: python components for the bashate package.
 Group: Default
-Requires: bashate-python3
+Requires: bashate-python3 = %{version}-%{release}
 
 %description python
 python components for the bashate package.
@@ -81,25 +83,33 @@ python3 components for the bashate package.
 
 %prep
 %setup -q -n bashate-0.6.0
+cd %{_builddir}/bashate-0.6.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1532403284
-python3 setup.py build -b py3
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1576008664
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
+export MAKEFLAGS=%{?_smp_mflags}
+python3 setup.py build
 
 %check
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-PYTHONPATH=%{buildroot}/usr/lib/python3.7/site-packages python3 setup.py test || :
+PYTHONPATH=%{buildroot}$(python -c "import sys; print(sys.path[-1])") python setup.py test || :
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/bashate
-cp LICENSE %{buildroot}/usr/share/doc/bashate/LICENSE
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/bashate
+cp %{_builddir}/bashate-0.6.0/LICENSE %{buildroot}/usr/share/package-licenses/bashate/57aed0b0f74e63f6b85cce11bce29ba1710b422b
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -112,8 +122,8 @@ echo ----[ mark ]----
 /usr/bin/bashate
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/bashate/LICENSE
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/bashate/57aed0b0f74e63f6b85cce11bce29ba1710b422b
 
 %files python
 %defattr(-,root,root,-)
