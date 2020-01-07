@@ -6,7 +6,7 @@
 #
 Name     : bashate
 Version  : 0.6.0
-Release  : 36
+Release  : 37
 URL      : http://tarballs.openstack.org/bashate/bashate-0.6.0.tar.gz
 Source0  : http://tarballs.openstack.org/bashate/bashate-0.6.0.tar.gz
 Source1  : http://tarballs.openstack.org/bashate/bashate-0.6.0.tar.gz.asc
