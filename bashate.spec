@@ -6,7 +6,7 @@
 #
 Name     : bashate
 Version  : 2.0.0
-Release  : 39
+Release  : 40
 URL      : http://tarballs.openstack.org/bashate/bashate-2.0.0.tar.gz
 Source0  : http://tarballs.openstack.org/bashate/bashate-2.0.0.tar.gz
 Source1  : http://tarballs.openstack.org/bashate/bashate-2.0.0.tar.gz.asc
